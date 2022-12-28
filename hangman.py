@@ -2,10 +2,10 @@ from random import choice
 import re
 
 class Bank:
-    colours = ['red','blue']
-    animals = ['dog','cat']
-    topic_names = ['Colours','Animals']
-    topics = {'Colours':colours,'Animals':animals}
+    colours = ['red', 'blue']
+    animals = ['dog', 'cat']
+    topic_names = ['Colours', 'Animals']
+    topics = {'Colours': colours, 'Animals': animals}
     api = 'https://api.api-ninjas.com/v1/randomword'
     api_key = 'FRkfTIwrgLLk+4TIMd+NMA==m6isKOfXzCLPgdGz'
 
@@ -57,13 +57,13 @@ class Processes:
         pass
 
     def validate_user_input(self, player):
-        expression=re.match('(?i)[A-z]',player.answer)
-        if expression == None or len(player.answer)>1:
+        expression = re.match(r"(?i)[A-z]", player.answer)
+        if expression is None or len(player.answer) > 1:
             print('\nPlease guess a single alphabet')
         else:
             player.guess_validation_incomplete = False
 
-    def check_answer_update_lives(self,bank,player):
+    def check_answer_update_lives(self, bank, player):
         if player.answer in bank.letters_already_guessed:
             print('\nLetter already guessed.')
                 
@@ -98,7 +98,7 @@ class Main:
                 player1.guess()
                 game.validate_user_input(player1)
                 game.check_answer_update_lives(word_bank, player1)
-            input(word_bank.current_word_display)
+            print(word_bank.current_word_display)
             player1.guess_validation_incomplete = True
             word_bank.check_solve()
 
