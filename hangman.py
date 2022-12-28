@@ -39,7 +39,8 @@ class Bank:
         print(self.current_word_display)
 
     def check_solve(self):
-        self.not_solved = self.letters_guessed_counter < len(self.current_word)
+        if self.letters_guessed_counter == len(self.current_word):
+            self.not_solved = False
 
 class Player:
     def __init__(self):
@@ -79,7 +80,7 @@ class Processes:
                     bank.letters_guessed_counter += 1
                     bank.letters_already_guessed.append(player.answer)
                     print('\nNice!')
-    
+
 class Main:
     def __init__(self):
         pass
@@ -97,7 +98,7 @@ class Main:
                 player1.guess()
                 game.validate_user_input(player1)
                 game.check_answer_update_lives(word_bank,player1)
-            print(word_bank.current_word_display)
+            input(word_bank.current_word_display)
             player1.guess_validation_incomplete = True
             word_bank.check_solve()
 
