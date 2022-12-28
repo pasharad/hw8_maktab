@@ -57,7 +57,7 @@ class Processes:
         pass
 
     def validate_user_input(self, player):
-        expression=re.match('(?i)[a-a]',player.answer)
+        expression=re.match('(?i)[A-z]',player.answer)
         if expression == None or len(player.answer)>1:
             print('\nPlease guess a single alphabet')
         else:
@@ -97,7 +97,7 @@ class Main:
             while player1.guess_validation_incomplete:
                 player1.guess()
                 game.validate_user_input(player1)
-                game.check_answer_update_lives(word_bank,player1)
+                game.check_answer_update_lives(word_bank, player1)
             input(word_bank.current_word_display)
             player1.guess_validation_incomplete = True
             word_bank.check_solve()
