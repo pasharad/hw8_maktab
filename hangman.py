@@ -1,5 +1,7 @@
 from random import choice
 import re
+import requests
+import json
 
 class Bank:
     colours = ['red', 'blue']
@@ -30,21 +32,25 @@ class Bank:
         else:
             self.current_word = choice(self.topics[self.current_topic])
             self.api_response_status = False
-
-    def pick_word(self):
-        self.current_word = choice(self.topics[self.current_topic])
         for i in self.current_word:
-            self.current_word_display.append('_')
+                self.current_word_display.append('_')
         print(f'Word is {len(self.current_word)} letters long.')
         print(self.current_word_display)
+
+    # def pick_word(self):
+    #     self.current_word = choice(self.topics[self.current_topic])
+    #     for i in self.current_word:
+    #         self.current_word_display.append('_')
+    #     print(f'Word is {len(self.current_word)} letters long.')
+    #     print(self.current_word_display)
 
     def check_solve(self):
         if self.letters_guessed_counter == len(self.current_word):
             self.not_solved = False
 
 class Player:
-    def __init__(self):
-        self.lives = 10
+    def __init__(self,wrd):
+        self.lives = len(wrd.current_word) * 3
         self.answer = ''
         self.guess_validation_incomplete = True
 
@@ -67,7 +73,7 @@ class Processes:
         if player.answer in bank.letters_already_guessed:
             print('\nLetter already guessed.')
                 
-        elif player.answer not in bank.current_word:
+        elif player.answer not in bank.current_word and player.answer.isalpha() :
             player.lives -= 1
             print('\nNope!')            
             print('Lives remaining: {}'.format(player.lives))
@@ -87,11 +93,15 @@ class Main:
 
     while True:
         word_bank = Bank()
-        player1 = Player()
+        # word_bank.pick_topic()
+        word_bank.get_word()
+        # word_bank.pick_word()
+        player1 = Player(word_bank)
+        
         game = Processes()
         
-        word_bank.pick_topic()
-        word_bank.pick_word()
+        
+        
 
         while word_bank.not_solved and player1.lives > 0:
             while player1.guess_validation_incomplete:
